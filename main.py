@@ -12,6 +12,7 @@ from file_loader import load_files
 from enums import Actions, FileType
 from strings import add as strings_add, remove as strings_remove, modify as strings_modify
 from plurals import Rules, add as plurals_add, remove as plurals_remove
+from utils import request_string_id
 
 
 def select_action_and_file_type() -> tuple[Actions, FileType]:
@@ -96,25 +97,8 @@ if __name__ == '__main__':
             logging.info('There\'s no file to process! Exiting...')
             break
 
-        string_id_regex = r'^[a-z0-9](?:[a-z0-9_]*[a-z0-9])?$'
         if action == Actions.ADD:
-            print()
-            print('ID must follow:')
-            print('- Characters a-z and A-Z')
-            print('- Numbers from 0-9')
-            print('- Underscore(_) can be placed between chars but')
-            print('  not at the start or the end of ID')
-            print('- No special characters (except for underscore)')
-            print('* You should keep ID in lowercase')
-
-            while True:
-                string_id: str = input('Specify string id: ').strip()
-
-                if re.match(string_id_regex, string_id):
-                    logging.debug(f'Input {string_id} matches {string_id_regex}')
-                    break
-                else:
-                    logging.error(f'{string_id} doesn\'t meet the requirements, please try again!')
+            string_id: str = request_string_id('Specify string id: ')
 
             if file_type == FileType.STRINGS:
                 string_value: str = input(f'Enter value of "{string_id}": ').strip()
@@ -128,23 +112,7 @@ if __name__ == '__main__':
 
 
         if action == Actions.REMOVE:
-            print()
-            print('ID must follow:')
-            print('- Characters a-z and A-Z')
-            print('- Numbers from 0-9')
-            print('- Underscore(_) can be placed between chars but')
-            print('  not at the start or the end of ID')
-            print('- No special characters (except for underscore)')
-            print('* You should keep ID in lowercase')
-
-            while True:
-                string_id: str = input('Specify string id to remove: ').strip()
-                
-                if re.match(string_id_regex, string_id):
-                    logging.debug(f'Input {string_id} matches {string_id_regex}')
-                    break
-                else:
-                    logging.error(f'{string_id} doesn\'t meet the requirements, please try again!')
+            string_id: str = request_string_id('Specify string id to remove: ')
 
             if file_type == FileType.STRINGS:
                 strings_remove(string_id, strings_files)
@@ -152,24 +120,7 @@ if __name__ == '__main__':
                 plurals_remove(string_id, plurals_files)
 
         if action == Actions.MODIFY:
-            print()
-            print('ID must follow:')
-            print('- Characters a-z and A-Z')
-            print('- Numbers from 0-9')
-            print('- Underscore(_) can be placed between chars but')
-            print('  not at the start or the end of ID')
-            print('- No special characters (except for underscore)')
-            print('* You should keep ID in lowercase')
-
-            while True:
-                string_id: str = input('Specify string id to modify: ').strip()
-                
-                if re.match(string_id_regex, string_id):
-                    logging.debug(f'Input {string_id} matches {string_id_regex}')
-                    break
-                else:
-                    logging.error(f'{string_id} doesn\'t meet the requirements, please try again!')
-
+            string_id: str = request_string_id('Specify string id to modify: ')
             string_new_value: str = input(f'Enter new value for "{string_id}": ').strip()
             
             if file_type == FileType.STRINGS:

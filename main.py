@@ -12,42 +12,7 @@ from file_loader import load_files
 from enums import Actions, FileType
 from strings import add as strings_add, remove as strings_remove, modify as strings_modify
 from plurals import Rules, add as plurals_add, remove as plurals_remove
-from utils import request_string_id
-
-
-def select_action_and_file_type() -> tuple[Actions, FileType]:
-    while True:
-        try:
-            print()
-            print('Available actions: add, remove, modify')
-            action_input: str = input('Please specify your action: ').strip().upper()
-
-            logging.debug(f'Input action: {action_input}')
-
-            action: Actions = Actions[action_input]
-
-            break
-        except KeyError:
-            logging.error(f'Invalid action {action_input}')
-            logging.info('Please try again!')
-            continue
-
-    while True:
-        try:
-            print()
-            print('Available types: strings, plurals')
-            file_type_input: str = input('Please specify your file type: ').strip().upper()
-
-            logging.debug(f'Input file type: {file_type_input}')
-
-            file_type: FileType = FileType[file_type_input]
-            break
-        except KeyError:
-            logging.error(f'Invalid file type {file_type_input}')
-            logging.info('Please try again!')
-            continue
-
-    return (action, file_type)
+from utils import request_string_id, select_action_and_file_type
 
 
 def write_to_files(files: dict[str, tuple[Locale, ET]]):

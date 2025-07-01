@@ -40,6 +40,10 @@ def write_to_files(files: dict[str, tuple[Locale, ET]]):
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG)
 
+    if len(sys.argv) < 2:
+        logging.error(f'Usage: python {sys.argv[0]} /path/to/res')
+        exit(1)
+
     # Contains localized sentences
     strings_files: dict[str, tuple[Locale, ET]] = {}
     # Contains localized word (single and plural forms)

@@ -50,7 +50,7 @@ def _get_type() -> FileType:
 
 
 def _get_action(file_type: FileType) -> Actions:
-    action_input: str
+    action: Actions
     
     while True:
         try:
@@ -64,7 +64,7 @@ def _get_action(file_type: FileType) -> Actions:
 
             logging.debug(f'Input action: {action_input}')
 
-            action: Actions = Actions[action_input]
+            action = Actions[action_input]
             if action == Actions.MODIFY and file_type == FileType.PLURALS:
                 raise KeyError('Modify is not allowed in plurals')
 
@@ -74,7 +74,7 @@ def _get_action(file_type: FileType) -> Actions:
             logging.info('Please try again!')
             continue
 
-    return action_input
+    return action
 
 
 def select_action_and_file_type() -> tuple[Actions, FileType]:

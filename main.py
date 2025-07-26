@@ -37,7 +37,7 @@ def write_to_files(files: dict[str, tuple[Locale, ET]]):
 
 
 # TODO: Add support for args (flags)
-if __name__ == '__main__':
+def main() -> None:
     logging.basicConfig(level=logging.DEBUG)
 
     if len(sys.argv) < 2:
@@ -109,7 +109,10 @@ if __name__ == '__main__':
             break
 
 
-
-
-
+if __name__ == '__main__':
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("")
+        exit(130)
 
